@@ -1,0 +1,264 @@
+[gd_scene load_steps=12 format=3 uid="uid://b7qmviwy3x24w"]
+
+[ext_resource type="Shader" path="res://shaders/loop.gdshader" id="1_8k0ph"]
+[ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_utd8c"]
+[ext_resource type="Texture2D" uid="uid://c1aqtcc3ptatt" path="res://assets/images/加载中.svg" id="2_a5o4v"]
+[ext_resource type="Texture2D" uid="uid://b3u42faen37nj" path="res://assets/images/loop.png" id="2_cbw6b"]
+[ext_resource type="AudioStream" uid="uid://cf4kucsqjvdul" path="res://assets/audios/明日方舟喧闹法则.mp3" id="4_ywlkp"]
+[ext_resource type="AudioStream" uid="uid://b488f263owbyy" path="res://assets/audios/明日方舟.mp3" id="5_1kup7"]
+[ext_resource type="Texture2D" uid="uid://bu035hovy8oj2" path="res://assets/images/聊天.svg" id="6_5t7xp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xsc01"]
+shader = ExtResource("1_8k0ph")
+shader_parameter/horizontal_scroll_speed = 0.1
+shader_parameter/vertical_scroll_speed = 0.1
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_0idkg"]
+shuffle = true
+stream_count = 2
+stream_0 = ExtResource("4_ywlkp")
+stream_1 = ExtResource("5_1kup7")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6rgpy"]
+viewport_path = NodePath("CatPeople/GDCubismUserModel")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lauw4"]
+bg_color = Color(0, 0, 0, 0.701961)
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_utd8c")
+
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_xsc01")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_cbw6b")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_0idkg")
+volume_db = -12.858
+autoplay = true
+
+[node name="CatPeople" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -759.0
+offset_top = -673.0
+offset_right = 779.0
+offset_bottom = 865.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_6rgpy")
+
+[node name="GDCubismUserModel" type="GDCubismUserModel" parent="CatPeople"]
+assets = "res://assets/live2d/hiyori_free_zh/runtime/hiyori_free_t08.model3.json"
+anim_loop = false
+anim_loop_fade_in = true
+anim_expression = "exp_02"
+anim_motion = "Flick_0"
+ParamAngleX = -2.81272
+ParamAngleY = -6.95316
+ParamAngleZ = 15.8565
+ParamCheek = 0.0
+ParamEyeLOpen = 1.0
+ParamEyeLSmile = 0.0
+ParamEyeROpen = 1.0
+ParamEyeRSmile = 0.0
+ParamEyeBallX = 0.0
+ParamEyeBallY = 0.0
+ParamBrowLForm = 0.0
+ParamBrowRForm = 0.0
+ParamMouthForm = 1.0
+ParamMouthOpenY = 0.0
+ParamBodyAngleX = 1.95346
+ParamBodyAngleY = 6.14292
+ParamBodyAngleZ = 8.0
+ParamBreath = 0.570866
+ParamArmLA = -2.71485
+ParamArmRA = -0.0145209
+ParamBustY = 0.0
+ParamHairAhoge = 2.1695
+ParamHairFront = 0.169075
+ParamHairSide = 0.34271
+ParamHairBack = 0.243553
+ParamHairSideUp = 0.246866
+ParamRibbon = 0.219825
+ParamSkirt = 0.141004
+ParamSideUpRibbon = 0.174381
+PartCore = 1.0
+PartCheek = 1.0
+PartBrow = 1.0
+PartEye = 1.0
+PartNose = 1.0
+PartMouth = 1.0
+PartFace = 1.0
+PartEar = 1.0
+PartHairSide = 1.0
+PartHairFront = 1.0
+PartHairBack = 1.0
+PartNeck = 1.0
+PartBody = 1.0
+PartArmA = 1.0
+PartEyeBall = 1.0
+disable_3d = true
+transparent_bg = true
+gui_disable_input = true
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
+
+[node name="GDCubismEffectBreath" type="GDCubismEffectBreath" parent="CatPeople/GDCubismUserModel"]
+
+[node name="GDCubismEffectEyeBlink" type="GDCubismEffectEyeBlink" parent="CatPeople/GDCubismUserModel"]
+
+[node name="LoadingContainer" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lauw4")
+
+[node name="CenterContainer" type="CenterContainer" parent="LoadingContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoadingContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect2" type="TextureRect" parent="LoadingContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_a5o4v")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LoadingContainer/CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="LoadingContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(0, 60)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+placeholder_text = "随便聊些什么吧~"
+caret_blink = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(0, 60)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MarginContainer2"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+placeholder_text = "随便聊些什么吧~"
+caret_blink = true
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -92.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 92.0
+grow_horizontal = 0
+theme_override_constants/icon_max_width = 60
+icon = ExtResource("6_5t7xp")
+flat = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer2/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer2/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_constants/line_separation = 6
+theme_override_font_sizes/normal_font_size = 19
+bbcode_enabled = true
+fit_content = true
+scroll_following = true
+
+[node name="CatPeopleAudio" type="AudioStreamPlayer" parent="."]
+volume_db = 6.051
+
+[connection signal="value_changed" from="LoadingContainer/ProgressBar" to="." method="_on_progress_bar_value_changed"]
+[connection signal="text_submitted" from="CanvasLayer/MarginContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="focus_entered" from="CanvasLayer/MarginContainer2/LineEdit" to="." method="_on_line_edit_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/MarginContainer2/LineEdit" to="." method="_on_line_edit_focus_exited"]
+[connection signal="text_submitted" from="CanvasLayer/MarginContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="gui_input" from="CanvasLayer2/PanelContainer/MarginContainer/ScrollContainer/RichTextLabel" to="." method="_on_rich_text_label_gui_input"]

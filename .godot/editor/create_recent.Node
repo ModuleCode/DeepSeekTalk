@@ -1,0 +1,15 @@
+PanelContainer
+MarginContainer
+RichTextLabel
+Label
+VBoxContainer
+ScrollContainer
+CanvasLayer
+Button
+GDCubismEffectEyeBlink
+GDCubismEffectBreath
+GDCubismUserModel
+LineEdit
+AudioStreamPlayer
+ProgressBar
+CenterContainer
